@@ -1,0 +1,90 @@
+<?php declare(strict_types=1);
+
+
+namespace functional\Kiboko\Plugin\JSON\Configuration;
+
+use PHPUnit\Framework\TestCase;
+use Kiboko\Plugin\JSON\Configuration;
+use Symfony\Component\Config;
+
+final class ConfigurationTest extends TestCase
+{
+    private ?Config\Definition\Processor $processor = null;
+
+    protected function setUp(): void
+    {
+        $this->processor = new Config\Definition\Processor();
+    }
+
+    public function validConfigProvider()
+    {
+        /* Minimal config */
+        yield [
+            'expected' => [
+                'extractor' => [
+                    'file_path' => 'path/to/file'
+                ]
+            ],
+            'actual' => [
+                'extractor' => [
+                    'file_path' => 'path/to/file'
+                ]
+            ]
+        ];
+
+        /* With logger */
+        yield [
+            'expected' => [
+                'logger' => [
+                    'type' => 'null',
+                    'destinations' => []
+                ],
+                'extractor' => [
+                    'file_path' => 'path/to/file'
+                ]
+            ],
+            'actual' => [
+                'logger' => [
+                    'type' => 'null'
+                ],
+                'extractor' => [
+                    'file_path' => 'path/to/file'
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * @dataProvider validConfigProvider
+     */
+    public function testValidConfig($expected, $actual)
+    {
+        $config = new Configuration();
+
+        $this->assertEquals(
+            $expected,
+            $this->processor->processConfiguration(
+                $config,
+                [
+                    $actual
+                ]
+            )
+        );
+    }
+
+    public function testMissingFilePath()
+    {
+        $this->expectException(Config\Definition\Exception\InvalidConfigurationException::class);
+        $this->expectExceptionMessage('The child config "file_path" under "json.extractor" must be configured.');
+
+        $config = new Configuration();
+        $this->processor->processConfiguration(
+            $config,
+            [
+                [
+                    'extractor' => []
+                ]
+            ]
+        );
+    }
+}

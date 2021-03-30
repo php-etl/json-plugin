@@ -1,0 +1,48 @@
+{
+    "name": "php-etl/json-plugin",
+    "description": "Plugin for JSON Extractor and Loader",
+    "type": "library",
+    "require": {
+        "php": "^8.0",
+        "php-etl/configurator-contracts": "^0.1",
+        "nikic/php-parser": "^4.10",
+        "symfony/config": "^4.0 || ^5.0",
+        "php-etl/pipeline-contracts": "^0.1",
+        "php-etl/log-plugin": "^0.1",
+        "php-etl/phpunit-extension": "^0.1",
+        "php-etl/json-flow": "^0.1"
+    },
+    "require-dev": {
+        "adlawson/vfs": "dev-develop",
+        "phpunit/phpunit": "^9.0",
+        "symfony/yaml": "5.x-dev",
+        "symfony/console": "5.x-dev",
+        "phpstan/phpstan": "0.12.x-dev"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Grégory Planchat",
+            "email": "gregory@kiboko.fr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Kiboko\\Plugin\\JSON\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "functional\\Kiboko\\Plugin\\JSON\\": "tests/functional/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    }
+}
