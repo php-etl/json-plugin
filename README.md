@@ -15,7 +15,7 @@ composer require php-etl/json-plugin
 # Usage
 Example of a config file. Reads `input.jsonld`, writes `output.jsonld`, logs error in system's [stderr](https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr)).
 ```yaml
-csv:
+json:
   extractor:
     file_path: 'input.jsonld'
 #  loader:
