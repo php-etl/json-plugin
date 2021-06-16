@@ -6,18 +6,15 @@
         "php": "^8.0",
         "php-etl/configurator-contracts": "^0.1",
         "nikic/php-parser": "^4.10",
-        "symfony/config": "^4.0 || ^5.0",
-        "php-etl/pipeline-contracts": "^0.1",
-        "php-etl/log-plugin": "^0.1",
-        "php-etl/phpunit-extension": "^0.1",
-        "php-etl/json-flow": "^0.1"
+        "symfony/config": "^5.2",
+        "php-etl/pipeline-contracts": "^0.1"
     },
     "require-dev": {
         "adlawson/vfs": "dev-develop",
         "phpunit/phpunit": "^9.0",
-        "symfony/yaml": "5.x-dev",
-        "symfony/console": "5.x-dev",
-        "phpstan/phpstan": "0.12.x-dev"
+        "phpstan/phpstan": "0.12.x-dev",
+        "php-etl/json-flow": "^0.1.0",
+        "php-etl/phpunit-extension": "^0.1.0"
     },
     "license": "MIT",
     "authors": [

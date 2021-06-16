@@ -46,28 +46,4 @@ class ExtractorTest extends TestCase
             $extractor
         );
     }
-
-    public function testWithLogger(): void
-    {
-        $extractor = new Builder\Extractor(
-            filePath: __DIR__.'/../files/source-to-extract.jsonld'
-        );
-
-        $extractor->withLogger(
-            (new Log\Builder\Logger())->getNode()
-        );
-
-        $this->assertBuilderProducesInstanceOf(
-            'Kiboko\\Component\\Flow\\JSON\\Extractor',
-            $extractor
-        );
-
-        $this->assertBuilderProducesExtractorIteratesAs(
-            [
-                ['firstname' => 'john', 'lastname' => 'doe'],
-                ['firstname' => 'jean', 'lastname' => 'dupont']
-            ],
-            $extractor
-        );
-    }
 }
