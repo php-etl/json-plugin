@@ -14,10 +14,6 @@ final class ServiceTest extends TestCase
             'expected' => [
                 'extractor' => [
                     'file_path' => 'path/to/file'
-                ],
-                'logger' => [
-                    'type' => 'stderr',
-                    'destinations' => []
                 ]
             ],
             'expected_class' => 'Kiboko\\Plugin\\JSON\\Factory\\Repository\\Extractor',
@@ -25,9 +21,6 @@ final class ServiceTest extends TestCase
                 'json' => [
                     'extractor' => [
                         'file_path' => 'path/to/file'
-                    ],
-                    'logger' => [
-                        'type' => 'stderr'
                     ]
                 ]
             ]
@@ -37,10 +30,6 @@ final class ServiceTest extends TestCase
             'expected' => [
                 'loader' => [
                     'file_path' => 'output.jsonld'
-                ],
-                'logger' => [
-                    'type' => 'stderr',
-                    'destinations' => []
                 ]
             ],
             'expected_class' => 'Kiboko\\Plugin\\JSON\\Factory\\Repository\\Loader',
@@ -48,9 +37,6 @@ final class ServiceTest extends TestCase
                 'json' => [
                     'loader' => [
                         'file_path' => 'output.jsonld'
-                    ],
-                    'logger' => [
-                        'type' => 'stderr'
                     ]
                 ]
             ]
@@ -76,7 +62,6 @@ final class ServiceTest extends TestCase
         );
 
         $this->assertTrue($service->validate($actual));
-        $this->assertFalse($service->validate(['logger' => []]));
 
         $this->assertInstanceOf(
             $expectedClass,

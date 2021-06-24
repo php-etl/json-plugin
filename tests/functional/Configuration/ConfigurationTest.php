@@ -31,27 +31,6 @@ final class ConfigurationTest extends TestCase
                 ]
             ]
         ];
-
-        /* With logger */
-        yield [
-            'expected' => [
-                'logger' => [
-                    'type' => 'null',
-                    'destinations' => []
-                ],
-                'extractor' => [
-                    'file_path' => 'path/to/file'
-                ]
-            ],
-            'actual' => [
-                'logger' => [
-                    'type' => 'null'
-                ],
-                'extractor' => [
-                    'file_path' => 'path/to/file'
-                ]
-            ]
-        ];
     }
 
     /**

@@ -4,15 +4,11 @@ namespace Kiboko\Plugin\JSON;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use Kiboko\Plugin\Log;
 
 final class Configuration implements ConfigurationInterface
 {
-    private ConfigurationInterface $loggerConfiguration;
-
-    public function __construct(?ConfigurationInterface $loggerConfiguration = null)
+    public function __construct()
     {
-        $this->loggerConfiguration = $loggerConfiguration ?: new Log\Configuration();
     }
 
     public function getConfigTreeBuilder(): TreeBuilder
@@ -31,7 +27,6 @@ final class Configuration implements ConfigurationInterface
             ->children()
                 ->append(node: $extractor->getConfigTreeBuilder()->getRootNode())
                 ->append(node: $loader->getConfigTreeBuilder()->getRootNode())
-                ->append(node: $this->loggerConfiguration->getConfigTreeBuilder()->getRootNode())
             ->end()
         ;
 

@@ -13,7 +13,7 @@ final class Loader implements ConfigurationInterface
 
         $builder->getRootNode()
             ->children()
-            ->scalarNode('file_path')->isRequired()->end()
+                ->scalarNode('file_path')->isRequired()->end()
             ->end();
 
         return $builder;

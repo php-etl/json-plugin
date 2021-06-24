@@ -49,30 +49,6 @@ class LoaderTest extends TestCase
         );
     }
 
-    public function testWithLogger()
-    {
-        $loader = new Builder\Loader(
-            filePath: 'vfs://output.jsonld'
-        );
-
-        $this->assertBuilderProducesInstanceOf(
-            'Kiboko\\Component\\Flow\\JSON\\Loader',
-            $loader
-        );
-
-        $this->assertBuilderProducesPipelineLoadingLike(
-            [
-                ['firstname' => 'john', 'lastname' => 'doe'],
-                ['firstname' => 'jean', 'lastname' => 'dupont']
-            ],
-            [
-                ['firstname' => 'john', 'lastname' => 'doe'],
-                ['firstname' => 'jean', 'lastname' => 'dupont']
-            ],
-            $loader
-        );
-    }
-
     public function testWritingFile()
     {
         $loader = new Builder\Loader(
