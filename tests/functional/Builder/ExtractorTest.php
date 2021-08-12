@@ -7,7 +7,6 @@ use Kiboko\Plugin\JSON\Builder;
 use Kiboko\Component\PHPUnitExtension\BuilderAssertTrait;
 use PHPUnit\Framework\TestCase;
 use Vfs\FileSystem;
-use Kiboko\Plugin\Log;
 
 class ExtractorTest extends TestCase
 {
