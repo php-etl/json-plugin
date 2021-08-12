@@ -2,21 +2,18 @@
 
 namespace Kiboko\Plugin\JSON;
 
+use Kiboko\Component\Satellite\NamedConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-final class Configuration implements ConfigurationInterface
+final class Configuration implements ConfigurationInterface, NamedConfigurationInterface
 {
-    public function __construct()
-    {
-    }
-
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $extractor = new Configuration\Extractor();
         $loader = new Configuration\Loader();
 
-        $builder = new TreeBuilder('json');
+        $builder = new TreeBuilder($this->getName());
         $builder->getRootNode()
             ->validate()
                 ->ifTrue(function (array $value) {
@@ -31,5 +28,10 @@ final class Configuration implements ConfigurationInterface
         ;
 
         return $builder;
+    }
+
+    public function getName(): string
+    {
+        return 'json';
     }
 }
