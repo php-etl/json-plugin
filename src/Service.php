@@ -2,25 +2,43 @@
 
 namespace Kiboko\Plugin\JSON;
 
-use Kiboko\Contract\Configurator\FactoryInterface;
-use Kiboko\Contract\Configurator\InvalidConfigurationException;
-use Kiboko\Contract\Configurator\RepositoryInterface;
-use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Kiboko\Component\Satellite\ExpressionLanguage\ExpressionLanguage;
+use Kiboko\Contract\Configurator;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\Definition\Exception as Symfony;
 
-final class Service implements FactoryInterface
+#[Configurator\Pipeline(
+    name: "json",
+    dependencies: [
+        'php-etl/pipeline-contracts:~0.3.0@dev',
+        'php-etl/bucket-contracts:~0.1.0@dev',
+        'php-etl/bucket:~0.2.0@dev',
+    ],
+    steps: [
+        'extractor' => 'extractor',
+        'loader' => 'loader',
+    ],
+)]
+final class Service implements Configurator\PipelinePluginInterface
 {
     private Processor $processor;
-    private ConfigurationInterface $configuration;
+    private Configurator\PluginConfigurationInterface $configuration;
+    private ExpressionLanguage $interpreter;
 
-    public function __construct()
-    {
+    public function __construct(
+        ?ExpressionLanguage $interpreter = null,
+    ) {
         $this->processor = new Processor();
         $this->configuration = new Configuration();
+        $this->interpreter = $interpreter ?? new ExpressionLanguage();
     }
 
-    public function configuration(): ConfigurationInterface
+    public function interpreter(): ExpressionLanguage
+    {
+        return $this->interpreter;
+    }
+
+    public function configuration(): Configurator\PluginConfigurationInterface
     {
         return $this->configuration;
     }
@@ -30,7 +48,7 @@ final class Service implements FactoryInterface
         try {
             return $this->processor->processConfiguration($this->configuration, $config);
         } catch (Symfony\InvalidTypeException | Symfony\InvalidConfigurationException $exception) {
-            throw new InvalidConfigurationException($exception->getMessage(), 0, $exception);
+            throw new Configurator\InvalidConfigurationException($exception->getMessage(), 0, $exception);
         }
     }
 
@@ -43,7 +61,7 @@ final class Service implements FactoryInterface
         return false;
     }
 
-    public function compile(array $config): RepositoryInterface
+    public function compile(array $config): Configurator\RepositoryInterface
     {
         try {
             if (array_key_exists('extractor', $config)) {
@@ -55,12 +73,12 @@ final class Service implements FactoryInterface
 
                 return $loaderFactory->compile($config['loader']);
             } else {
-                throw new InvalidConfigurationException(
+                throw new Configurator\InvalidConfigurationException(
                     'Could not determine if the factory should build an extractor or a loader.'
                 );
             }
-        } catch (InvalidConfigurationException $exception) {
-            throw new InvalidConfigurationException($exception->getMessage(), 0, $exception);
+        } catch (Symfony\InvalidConfigurationException $exception) {
+            throw new Configurator\InvalidConfigurationException($exception->getMessage(), previous: $exception);
         }
     }
 }
