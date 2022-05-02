@@ -15,8 +15,8 @@ use Symfony\Component\Config\Definition\Exception as Symfony;
         'php-etl/bucket:~0.2.0@dev',
     ],
     steps: [
-        'extractor' => 'extractor',
-        'loader' => 'loader',
+        new Configurator\Pipeline\StepExtractor(),
+        new Configurator\Pipeline\StepLoader(),
     ],
 )]
 final class Service implements Configurator\PipelinePluginInterface
