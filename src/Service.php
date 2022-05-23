@@ -1,14 +1,16 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Kiboko\Plugin\JSON;
 
-use Kiboko\Component\Satellite\ExpressionLanguage\ExpressionLanguage;
 use Kiboko\Contract\Configurator;
-use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\Definition\Exception as Symfony;
+use Symfony\Component\Config\Definition\Processor;
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 #[Configurator\Pipeline(
-    name: "json",
+    name: 'json',
     dependencies: [
         'php-etl/pipeline-contracts:~0.3.0@dev',
         'php-etl/bucket-contracts:~0.1.0@dev',
@@ -47,7 +49,7 @@ final class Service implements Configurator\PipelinePluginInterface
     {
         try {
             return $this->processor->processConfiguration($this->configuration, $config);
-        } catch (Symfony\InvalidTypeException | Symfony\InvalidConfigurationException $exception) {
+        } catch (Symfony\InvalidTypeException|Symfony\InvalidConfigurationException $exception) {
             throw new Configurator\InvalidConfigurationException($exception->getMessage(), 0, $exception);
         }
     }
@@ -64,19 +66,13 @@ final class Service implements Configurator\PipelinePluginInterface
     public function compile(array $config): Configurator\RepositoryInterface
     {
         try {
-            if (array_key_exists('extractor', $config)) {
-                $extractorFactory = new Factory\Extractor();
-
-                return $extractorFactory->compile($config['extractor']);
-            } elseif (array_key_exists('loader', $config)) {
-                $loaderFactory = new Factory\Loader();
-
-                return $loaderFactory->compile($config['loader']);
-            } else {
-                throw new Configurator\InvalidConfigurationException(
-                    'Could not determine if the factory should build an extractor or a loader.'
-                );
+            if (\array_key_exists('extractor', $config)) {
+                return (new Factory\Extractor())->compile($config['extractor']);
             }
+            if (\array_key_exists('loader', $config)) {
+                return (new Factory\Loader())->compile($config['loader']);
+            }
+            throw new Configurator\InvalidConfigurationException('Could not determine if the factory should build an extractor or a loader.');
         } catch (Symfony\InvalidConfigurationException $exception) {
             throw new Configurator\InvalidConfigurationException($exception->getMessage(), previous: $exception);
         }
