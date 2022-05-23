@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Vfs\FileSystem;
 use Kiboko\Plugin\Log;
 
-class ExtractorTest extends TestCase
+abstract class ExtractorTest extends TestCase
 {
     use BuilderAssertTrait;
 

@@ -7,7 +7,7 @@ use Kiboko\Component\PHPUnitExtension\BuilderAssertTrait;
 use PHPUnit\Framework\TestCase;
 use Vfs\FileSystem;
 
-class LoaderTest extends TestCase
+abstract class LoaderTest extends TestCase
 {
     use BuilderAssertTrait;
 
