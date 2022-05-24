@@ -1,14 +1,15 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 namespace Kiboko\Plugin\JSON\Factory;
 
-use Kiboko\Plugin\JSON;
 use Kiboko\Contract\Configurator;
 use Kiboko\Contract\Configurator\FactoryInterface;
+use Kiboko\Plugin\JSON;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\Definition\Exception as Symfony;
+use Symfony\Component\Config\Definition\Processor;
 
 final class Extractor implements FactoryInterface
 {

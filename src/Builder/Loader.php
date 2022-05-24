@@ -1,15 +1,31 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 namespace Kiboko\Plugin\JSON\Builder;
 
-use PhpParser\Builder;
+use Kiboko\Contract\Configurator\StepBuilderInterface;
 use PhpParser\Node;
 
-final class Loader implements Builder
+final class Loader implements StepBuilderInterface
 {
     public function __construct(private string $filePath)
     {
+    }
+
+    public function withLogger(Node\Expr $logger): StepBuilderInterface
+    {
+        return $this;
+    }
+
+    public function withRejection(Node\Expr $rejection): StepBuilderInterface
+    {
+        return $this;
+    }
+
+    public function withState(Node\Expr $state): StepBuilderInterface
+    {
+        return $this;
     }
 
     public function getNode(): Node
@@ -18,17 +34,17 @@ final class Loader implements Builder
             new Node\Arg(
                 new Node\Expr\New_(
                     class: new Node\Name\FullyQualified('SplFileObject'),
-                    args:[
+                    args: [
                         new Node\Arg(
                             new Node\Scalar\String_($this->filePath)
                         ),
                         new Node\Arg(
-                            new Node\Scalar\String_("w")
-                        )
+                            new Node\Scalar\String_('w')
+                        ),
                     ]
                 ),
                 name: new Node\Identifier('file')
-            )
+            ),
         ];
 
         return new Node\Expr\New_(

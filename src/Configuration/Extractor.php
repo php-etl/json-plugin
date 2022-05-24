@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Kiboko\Plugin\JSON\Configuration;
 
@@ -14,7 +16,8 @@ final class Extractor implements ConfigurationInterface
         $builder->getRootNode()
             ->children()
                 ->scalarNode('file_path')->isRequired()->end()
-            ->end();
+            ->end()
+        ;
 
         return $builder;
     }
