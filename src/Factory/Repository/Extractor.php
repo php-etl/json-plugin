@@ -11,7 +11,7 @@ final class Extractor implements Configurator\StepRepositoryInterface
 {
     use RepositoryTrait;
 
-    public function __construct(private JSON\Builder\Extractor $builder)
+    public function __construct(private readonly JSON\Builder\Extractor $builder)
     {
         $this->files = [];
         $this->packages = [];

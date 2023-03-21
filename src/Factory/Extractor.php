@@ -11,7 +11,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception as Symfony;
 use Symfony\Component\Config\Definition\Processor;
 
-final class Extractor implements FactoryInterface
+final readonly class Extractor implements FactoryInterface
 {
     private Processor $processor;
     private ConfigurationInterface $configuration;
