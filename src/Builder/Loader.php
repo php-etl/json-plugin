@@ -7,7 +7,7 @@ namespace Kiboko\Plugin\JSON\Builder;
 use Kiboko\Contract\Configurator\StepBuilderInterface;
 use PhpParser\Node;
 
-final class Loader implements StepBuilderInterface
+final readonly class Loader implements StepBuilderInterface
 {
     public function __construct(private string $filePath)
     {

@@ -7,7 +7,7 @@ namespace Kiboko\Plugin\JSON\Builder;
 use Kiboko\Contract\Configurator\StepBuilderInterface;
 use PhpParser\Node;
 
-final class Extractor implements StepBuilderInterface
+final readonly class Extractor implements StepBuilderInterface
 {
     public function __construct(private string $filePath)
     {

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ServiceTest extends TestCase
 {
-    public function configProvider()
+    public static function configProvider()
     {
         yield [
             'expected' => [
@@ -16,7 +16,7 @@ final class ServiceTest extends TestCase
                     'file_path' => 'path/to/file'
                 ]
             ],
-            'expected_class' => 'Kiboko\\Plugin\\JSON\\Factory\\Repository\\Extractor',
+            'expected_class' => \Kiboko\Plugin\JSON\Factory\Repository\Extractor::class,
             'actual' => [
                 'json' => [
                     'extractor' => [
@@ -32,7 +32,7 @@ final class ServiceTest extends TestCase
                     'file_path' => 'output.jsonld'
                 ]
             ],
-            'expected_class' => 'Kiboko\\Plugin\\JSON\\Factory\\Repository\\Loader',
+            'expected_class' => \Kiboko\Plugin\JSON\Factory\Repository\Loader::class,
             'actual' => [
                 'json' => [
                     'loader' => [
@@ -43,9 +43,7 @@ final class ServiceTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider configProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('configProvider')]
     public function testWithConfigurationAndProcessor(array $expected, string $expectedClass, array $actual): void
     {
         $service = new JSON\Service();

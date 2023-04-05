@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class FactoryExtractorTest extends TestCase
 {
-    public function configProvider()
+    public static function configProvider()
     {
         yield [
             'expected' => [
@@ -23,9 +23,7 @@ final class FactoryExtractorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider configProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('configProvider')]
     public function testWithConfiguration(array $expected, array $actual): void
     {
         $factory = new JSON\Factory\Extractor();
