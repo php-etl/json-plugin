@@ -2,28 +2,35 @@
 
 namespace functional\Kiboko\Plugin\JSON\Builder;
 
-abstract class LoaderTestCase extends \PHPUnit\Framework\TestCase
+use Kiboko\Component\PHPUnitExtension\BuilderAssertTrait;
+use Kiboko\Plugin\JSON\Builder\Loader;
+use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStreamWrapper;
+use PHPUnit\Framework\TestCase;
+
+abstract class LoaderTestCase extends TestCase
 {
-    use \Kiboko\Component\PHPUnitExtension\BuilderAssertTrait;
-    private ?\org\bovigo\vfs\vfsStreamDirectory $fs = null;
+    use BuilderAssertTrait;
+    private ?vfsStreamDirectory $fs = null;
     protected function setUp(): void
     {
-        $this->fs = \org\bovigo\vfs\vfsStream::setup();
+        $this->fs = vfsStream::setup();
     }
     protected function tearDown(): void
     {
         $this->fs = null;
-        \org\bovigo\vfs\vfsStreamWrapper::unregister();
+        vfsStreamWrapper::unregister();
     }
     public function testWithoutOption()
     {
-        $loader = new \Kiboko\Plugin\JSON\Builder\Loader(filePath: 'vfs://output.jsonld');
+        $loader = new Loader(filePath: 'vfs://output.jsonld');
         $this->assertBuilderProducesInstanceOf('Kiboko\Component\Flow\JSON\Loader', $loader);
         $this->assertBuilderProducesPipelineLoadingLike([['firstname' => 'john', 'lastname' => 'doe'], ['firstname' => 'jean', 'lastname' => 'dupont']], [['firstname' => 'john', 'lastname' => 'doe'], ['firstname' => 'jean', 'lastname' => 'dupont']], $loader);
     }
     public function testWritingFile()
     {
-        $loader = new \Kiboko\Plugin\JSON\Builder\Loader(filePath: 'vfs://output.jsonld');
+        $loader = new Loader(filePath: 'vfs://output.jsonld');
         $this->assertBuilderProducesLoaderWritingFile(__DIR__ . '/../files/source-to-extract.jsonld', [[['firstname' => 'john', 'lastname' => 'doe'], ['firstname' => 'jean', 'lastname' => 'dupont']], [['firstname' => 'john', 'lastname' => 'doe'], ['firstname' => 'jean', 'lastname' => 'dupont']]], $loader);
     }
 }

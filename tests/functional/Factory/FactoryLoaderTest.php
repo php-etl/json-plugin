@@ -4,6 +4,7 @@ namespace functional\Kiboko\Plugin\JSON\Factory;
 
 use Kiboko\Contract\Configurator\InvalidConfigurationException;
 use Kiboko\Plugin\JSON;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class FactoryLoaderTest extends TestCase
@@ -22,7 +23,7 @@ final class FactoryLoaderTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('configProvider')]
+    #[DataProvider('configProvider')]
     public function testWithConfiguration(array $expected, array $actual): void
     {
         $factory = new JSON\Factory\Loader();
