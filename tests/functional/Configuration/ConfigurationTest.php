@@ -3,6 +3,7 @@
 
 namespace functional\Kiboko\Plugin\JSON\Configuration;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Kiboko\Plugin\JSON\Configuration;
 use Symfony\Component\Config;
@@ -33,7 +34,7 @@ final class ConfigurationTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('validConfigProvider')]
+    #[DataProvider('validConfigProvider')]
     public function testValidConfig($expected, $actual)
     {
         $config = new Configuration();

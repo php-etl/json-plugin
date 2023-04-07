@@ -5,6 +5,7 @@ namespace functional\Kiboko\Plugin\JSON\Factory;
 
 use Kiboko\Contract\Configurator\InvalidConfigurationException;
 use Kiboko\Plugin\JSON;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class FactoryExtractorTest extends TestCase
@@ -23,7 +24,7 @@ final class FactoryExtractorTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('configProvider')]
+    #[DataProvider('configProvider')]
     public function testWithConfiguration(array $expected, array $actual): void
     {
         $factory = new JSON\Factory\Extractor();

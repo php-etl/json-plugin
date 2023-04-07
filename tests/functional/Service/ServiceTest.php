@@ -4,6 +4,8 @@ namespace functional\Kiboko\Plugin\JSON\Service;
 
 use Kiboko\Contract\Configurator\InvalidConfigurationException;
 use Kiboko\Plugin\JSON;
+use Kiboko\Plugin\JSON\Factory\Repository\Extractor;
+use Kiboko\Plugin\JSON\Factory\Repository\Loader;
 use PHPUnit\Framework\TestCase;
 
 final class ServiceTest extends TestCase
@@ -16,7 +18,7 @@ final class ServiceTest extends TestCase
                     'file_path' => 'path/to/file'
                 ]
             ],
-            'expected_class' => \Kiboko\Plugin\JSON\Factory\Repository\Extractor::class,
+            'expected_class' => Extractor::class,
             'actual' => [
                 'json' => [
                     'extractor' => [
@@ -32,7 +34,7 @@ final class ServiceTest extends TestCase
                     'file_path' => 'output.jsonld'
                 ]
             ],
-            'expected_class' => \Kiboko\Plugin\JSON\Factory\Repository\Loader::class,
+            'expected_class' => Loader::class,
             'actual' => [
                 'json' => [
                     'loader' => [
