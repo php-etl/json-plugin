@@ -12,9 +12,10 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 #[Configurator\Pipeline(
     name: 'json',
     dependencies: [
-        'php-etl/pipeline-contracts:~0.4.0@dev',
-        'php-etl/bucket-contracts:~0.2.0@dev',
-        'php-etl/bucket:~0.3.0@dev',
+        'php-etl/pipeline-contracts:0.4.*',
+        'php-etl/bucket-contracts:0.2.*',
+        'php-etl/bucket:0.3.*',
+        'php-etl/json-flow:0.1.*'
     ],
     steps: [
         new Configurator\Pipeline\StepExtractor(),
