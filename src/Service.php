@@ -14,8 +14,8 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
     dependencies: [
         'php-etl/pipeline-contracts:0.4.*',
         'php-etl/bucket-contracts:0.2.*',
-        'php-etl/bucket:0.3.*',
-        'php-etl/json-flow:0.1.*',
+        'php-etl/bucket:"*"',
+        'php-etl/json-flow:"*"',
     ],
     steps: [
         new Configurator\Pipeline\StepExtractor(),
